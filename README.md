@@ -6,6 +6,9 @@ To use SHAP-Selection, you will need:
   * [SHAP](https://github.com/slundberg/shap)
 
 ## Instalation
+```
+pip install shap-selection
+```
 
 
 ## Citation
