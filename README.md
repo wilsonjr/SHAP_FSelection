@@ -1,6 +1,6 @@
 # SHAP-Selection: Selecting feature using SHAP values
 
-Due to the increasing concerns about machine learning interpretability, we believe that interpretation must be added also to the pre-processing steps. Using this library, you will be able to select the most important features from a multidimensional dataset while being able to explain your decisions!
+Due to the increasing concerns about machine learning interpretability, we believe that interpretation could be added to pre-processing steps. Using this library, you will be able to select the most important features from a multidimensional dataset while being able to explain your decisions!
 
 To use SHAP-Selection, you will need:
   * [SHAP](https://github.com/slundberg/shap)
@@ -9,7 +9,6 @@ To use SHAP-Selection, you will need:
 ```
 pip install shap-selection
 ```
-
 
 ## Citation
 
@@ -49,10 +48,11 @@ model.fit(X_train, y_train)
 ##### Use SHAP-Selection
 
 ```python
-# please, use agnostic = True to use with any model...
-# agnostic = True will only work with tree-based models
+
 from shap_selection import feature_selection
 
+# please, use agnostic = True to use with any model...
+# agnostic = True will only work with tree-based models
 feature_order = feature_selection.shap_select(model, X_train, X_test, feature_names, agnostic=False)
 ```
 
