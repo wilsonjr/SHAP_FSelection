@@ -53,7 +53,7 @@ model.fit(X_train, y_train)
 # agnostic = True will only work with tree-based models
 from shap_selection import feature_selection
 
-feature_order = feature_selection.shap_select(model, X_train, X_test, y_train, y_test, feature_names, agnostic=False)
+feature_order = feature_selection.shap_select(model, X_train, X_test, feature_names, agnostic=False)
 ```
 
 ### Support 
