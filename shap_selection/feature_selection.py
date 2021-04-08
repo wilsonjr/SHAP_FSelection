@@ -3,11 +3,19 @@ import numpy as np
 
 def _shap_ordering(feature_names, shap_values, task='classification'):
     if task == 'classification' and type(shap_values) == type(list()):
-        feature_order = np.argsort(np.sum(np.mean(np.abs(shap_values), axis=1), axis=0))
-        return feature_names[feature_order][::-1]
+
+        aggreated_values = np.sum(np.mean(np.abs(shap_values), axis=1), axis=0)
+
+        feature_order = np.argsort(aggreated_values)
+        return feature_names[feature_order][::-1], np.sort(aggreated_values)[::-1]
     else:
-        feature_order = np.argsort(np.sum(np.abs(shap_values), axis=0))
-        return feature_names[feature_order][::-1]
+
+        aggreated_values = np.sum(np.abs(shap_values), axis=0)
+
+        feature_order = np.argsort(aggreated_values)
+
+
+        return feature_names[feature_order][::-1], np.sort(aggreated_values)[::-1]
     
     
 def shap_select(model, X_train, X_test, feature_names, task='classification', agnostic=False):
@@ -20,7 +28,9 @@ def shap_select(model, X_train, X_test, feature_names, task='classification', ag
     :param X_train: training data
     :param X_test: test data
     :param feature_names: feature names
-    :return: Ordered feature names based on the importance computed using SHAP values
+    :return: Ordered feature names based on the importance computed using SHAP values and
+             the importance value associated to the features
+
     """
     
     explainer = None
@@ -36,6 +46,6 @@ def shap_select(model, X_train, X_test, feature_names, task='classification', ag
         explainer = shap.KernelExplainer(model.predict_proba, background)
     
     shap_values = explainer.shap_values(X_test)
-    ordering = _shap_ordering(feature_names, shap_values)
+    ordering, importance_values = _shap_ordering(feature_names, shap_values)
     
-    return ordering
+    return ordering, importance_values

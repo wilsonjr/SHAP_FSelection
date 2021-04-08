@@ -2,3 +2,4 @@ catboost_info/
 shap_selection.egg-info/
 build/
 dist/
+.eggs/
