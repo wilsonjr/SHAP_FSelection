@@ -12,7 +12,7 @@
 SHAP-Selection: Selecting feature using SHAP values
 =====
 
-Due to the increasing concerns about machine learning interpretability, we believe that interpretation could be added to pre-processing steps. Using this library, you will be able to select the most important features from a multidimensional dataset while being able to explain your decisions!
+Due to the increasing concerns about machine learning interpretability, we believe that interpretation could be added to pre-processing steps. Using this library, you will be able to select the most important features from a multidimensional dataset while explaining your decisions!
 
 To use SHAP-Selection, you will need:
   * `SHAP <https://github.com/slundberg/shap>`_
