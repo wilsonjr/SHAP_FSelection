@@ -18,7 +18,7 @@ def _shap_ordering(feature_names, shap_values, task='classification'):
         return feature_names[feature_order][::-1], np.sort(aggreated_values)[::-1]
     
     
-def shap_select(model, X_train, X_test, feature_names, task='classification', agnostic=False):
+def shap_select(model, X_train, X_test, feature_names, task='classification', agnostic=False, background_size=0.1):
     """
     Return the feature ordering of a multidimensional dataset based on the features importance.
     The importance is calculated upon SHAP values, which takes into account a fitted model.
@@ -28,6 +28,9 @@ def shap_select(model, X_train, X_test, feature_names, task='classification', ag
     :param X_train: training data
     :param X_test: test data
     :param feature_names: feature names
+    :param task: classification or regression
+    :param agnostic: whether to use or not agnostic explanation
+    :param background_size: percentage of the datapoints to use as background data
     :return: Ordered feature names based on the importance computed using SHAP values and
              the importance value associated to the features
 
@@ -39,13 +42,13 @@ def shap_select(model, X_train, X_test, feature_names, task='classification', ag
         explainer = shap.TreeExplainer(model)
     else:
         background = None
-        if len(X) < 500:
+        if len(X_train) < 500:
             background = X_train
         else:
-            background = shap.sample(X_train, int(len(X_train)*0.05))
+            background = shap.sample(X_train, int(len(X_train)*background_size))
         explainer = shap.KernelExplainer(model.predict_proba, background)
     
     shap_values = explainer.shap_values(X_test)
-    ordering, importance_values = _shap_ordering(feature_names, shap_values)
+    ordering, importance_values = _shap_ordering(feature_names, shap_values, task)
     
     return ordering, importance_values

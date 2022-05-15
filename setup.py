@@ -6,7 +6,7 @@ with open('README.md', 'r') as f:
 setup(
 	name='shap_selection',
 	packages=find_packages(include=['shap_selection']),
-	version='0.1.5',
+	version='0.1.6',
 	description='Selecting features using SHAP values',
 	long_description=long_description,
     long_description_content_type='text/markdown',
